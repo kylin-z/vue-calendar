@@ -1,0 +1,113 @@
+$title-bar-height: 60px;
+$body-border-color: #e6e5e6;
+$week-title-border-color: #c8c6cc;
+.kl-calendar {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  background: #fff;
+  .kl-calendar_title-bar {
+    height: $title-bar-height;
+    display: flex;
+    padding: 0 20px;
+    .kl-calendar_render-info {
+      font-size: 30px;
+      font-weight: bold;
+      color: #333;
+      line-height: $title-bar-height;
+      flex: 1;
+    }
+    .kl-calendar_tool {
+      display: flex;
+      align-items: center;
+      .kl-calendar_tool-btn {
+        height: 20px;
+        line-height: 20px;
+        cursor: pointer;
+        color: #333;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        padding: 2px 6px;
+        margin: 0 2px;
+      }
+    }
+  }
+  .kl-calendar_body {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    .kl-calendar_body-week-title {
+      display: flex;
+      border-bottom: 1px solid $week-title-border-color;
+      .kl-calendar_body-week-title-item {
+        flex: 1;
+        text-align: right;
+        font-size: 18px;
+        padding-right: 6px;
+        box-sizing: border-box;
+        line-height: 34px;
+      }
+    }
+    .kl-calendar_body-week {
+      flex: 1;
+      display: flex;
+      border-left: 1px solid $body-border-color;
+      .kl-calendar_body-day {
+        flex: 1;
+        position: relative;
+        border-right: 1px solid $body-border-color;
+        border-bottom: 1px solid $body-border-color;
+
+        .kl-calendar_day-box {
+          position: absolute;
+          width: 100%;
+          height: 100%;
+          box-sizing: border-box;
+          padding: 10px;
+          &.kl-calendar_day-other-month-day {
+            color: #ccc;
+          }
+          .kl-calendar_day-info {
+            margin: 0;
+            .kl-calendar_day-info-lunar {
+              &.kl-calendar_lunar-first {
+                border-bottom: 2px solid #ff6d6d;
+              }
+            }
+            .kl-calendar_day-info-date {
+              float: right;
+              .kl-calendar_day-today{
+                display: inline-block;
+                width: 20px;
+                height: 20px;
+                line-height: 20px;
+                margin-right: 2px;
+                text-align: center;
+                color: #fff;
+                background-color: #ff6d6d;
+                border-radius: 50%;
+              }
+            }
+          }
+          &.kl-calendar_body-day-weekend {
+            background-color: #f4f6f7;
+          }
+          .kl-calendar_day-term,.kl-calendar_day-festival {
+            color: #333;
+            height: 16px;
+            line-height: 16px;
+            padding-left: 10px;
+            cursor: default;
+          }
+          .kl-calendar_day-term{
+            background-color: #a7d1ed;
+          }
+          .kl-calendar_day-festival{
+            background-color: #f9d8f8;
+          }
+        }
+      }
+    }
+  }
+}
