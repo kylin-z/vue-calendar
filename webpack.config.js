@@ -8,13 +8,15 @@ if (process.env.NODE_ENV === 'production') {
   entry = './src/calendar/main.js'
   outputFileName = 'vue-calendar.js'
 }
+
 module.exports = {
-  // entry: './src/main.js',
   entry: entry,
   output: {
     path: path.resolve(__dirname, './dist'),
     publicPath: '/dist/',
-    filename: outputFileName
+    filename: outputFileName,
+    library: 'vue-calendar',
+    libraryTarget: 'umd'
   },
   module: {
     rules: [

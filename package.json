@@ -1,7 +1,7 @@
 {
   "name": "himmas-vue-calendar",
   "description": "A calendar component for Vue.js",
-  "version": "1.0.0",
+  "version": "1.0.5",
   "author": "kylin-z <kailinzhou@yeah.net>",
   "license": "MIT",
   "scripts": {
@@ -10,8 +10,9 @@
   },
   "private": false,
   "main": "dist/vue-calendar.js",
-  "dependencies": {
-    "vue": "^2.5.11"
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/kylin-z/vue-calendar.git"
   },
   "browserslist": [
     "> 1%",
@@ -25,13 +26,14 @@
     "babel-plugin-syntax-jsx": "^6.18.0",
     "babel-plugin-transform-vue-jsx": "^3.5.1",
     "babel-preset-env": "^1.6.1",
-    "babel-preset-stage-3": "^6.24.1",
     "babel-preset-stage-0": "^6.24.1",
+    "babel-preset-stage-3": "^6.24.1",
     "cross-env": "^5.0.5",
     "css-loader": "^0.28.7",
     "file-loader": "^1.1.4",
     "node-sass": "^4.5.3",
     "sass-loader": "^6.0.6",
+    "vue": "^2.5.13",
     "vue-loader": "^13.0.5",
     "vue-template-compiler": "^2.4.4",
     "webpack": "^3.6.0",

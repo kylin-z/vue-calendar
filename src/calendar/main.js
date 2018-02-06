@@ -1,21 +1,11 @@
 import Calendar from './Index'
 
-var CalendarPlugins = {
-  install: function (Vue) {
-    Vue.component(Calendar.name, Calendar)
-  },
-  Calendar
+Calendar.install = function (Vue) {
+  Vue.component(Calendar.name, Calendar)
 }
 
-if (typeof exports == "object") {
-  module.exports = CalendarPlugins
-// 支持 AMD
-} else if (typeof define == "function" && define.amd) {
-  define([], function(){ return CalendarPlugins })
-// Vue 是全局变量时，自动调用 Vue.use()
-} else if (window.Vue) {
-  window.CalendarPlugins = CalendarPlugins
-  Vue.use(CalendarPlugins)
+if (typeof window !== 'undefined' && window.Vue) {
+  window.Vue.use(Calendar);
 }
-
-export default CalendarPlugins
+//TODO:给npm包添加信息和关键字、文档、博客
+export default Calendar
