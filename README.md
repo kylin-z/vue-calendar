@@ -1,6 +1,6 @@
 # calendar
 
- 基于vue2.0的轻量展示型日历组件
+ 基于vue2.0的轻量展示型日历组件,支持自定义内容
  
  ![](http://7xrqm7.com1.z0.glb.clouddn.com/readme-vue-calendar-example-1.png?imageView2/1/w/1200/h/800/q/100)
 
@@ -293,7 +293,10 @@ new Vue({
 
   ```
 
+## tips
 
+- 由于使用了flex布局，在IE9及以下版本的浏览器中会渲染失常
+- 最低支持到vue.js v2.1.5
 
 
 ## Build Setup
