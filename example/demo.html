@@ -71,6 +71,9 @@
                :render-content="renderContent"
                :week-title="weekTitle"
                :border="false"
+               :before-render="beforeRender"
+               @year-change="changeHandle"
+               @month-change="changeHandle"
 
   />
 </div>
@@ -95,9 +98,6 @@
         ]
       }
     },
-    created() {
-
-    },
     methods: {
       twoDigit:function(num){ return ('000'+num).slice(-2) },
       renderContent(h, data) {
@@ -111,8 +111,6 @@
           festival : (term ? term : (lunarDayChiness || ''))
 
         var dateStr = `${year}-${this.twoDigit(month)}-${this.twoDigit(day)}`
-
-        console.log(dateStr,this.holiday.indexOf(dateStr))
 
         var isHoliday = (!!~this.holiday.indexOf(dateStr)) || isWeekend
 
@@ -138,6 +136,13 @@
             'sign': true
           }
         },'休')])
+      },
+      beforeRender(year,month,next){
+        console.log('before-render',year,month)
+        next()
+      },
+      changeHandle(year,month){
+        console.log('change',year,month)
       }
     }
   })
