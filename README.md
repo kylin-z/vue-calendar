@@ -45,16 +45,7 @@ new Vue({
 <script>
 
   export default {
-    name: 'App',
-    methods: {
-      renderMonthChange(year, month) {
-        console.log(year, month);
-      },
-      beforeRender(year,month,next){
-        console.log(year, month);
-        next()
-      }
-    }
+    name: 'App'
   }
 </script>
 
