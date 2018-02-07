@@ -1,7 +1,7 @@
 var path = require('path')
 var webpack = require('webpack')
 
-var entry = './src/main.js'
+var entry = './test/main.js'
 var outputFileName = 'build.js'
 
 if (process.env.NODE_ENV === 'production') {

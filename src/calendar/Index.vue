@@ -39,8 +39,14 @@
     name: "KlCalendar",
     components: {Item},
     props: {
-      width: String,
-      height: String,
+      width: {
+        type:String,
+        default:'100%'
+      },
+      height: {
+        type:String,
+        default:'100%'
+      },
       weekCount: {
         type: Number,
         default: 5
