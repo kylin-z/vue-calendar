@@ -18,6 +18,7 @@
 
         <div class="kl-calendar_body-week-title-item"
              v-for="weekDay in weekTitle"
+             :style="{textAlign:weekTitleAlign}"
         >{{weekDay}}
         </div>
       </div>
@@ -27,7 +28,9 @@
            v-for="week in weekCount">
         <div class="kl-calendar_body-day"
              :class="{'no-right-border':!border}"
-             v-for="day in 7">
+             v-for="day in 7"
+             @click="dateClick(currentDate(week,day))"
+        >
           <Item :source="currentDate(week,day)"></Item>
         </div>
       </div>
@@ -51,6 +54,25 @@
         type: String,
         default: '100%'
       },
+      //是否渲染农历
+      showLunar:{
+        type: Boolean,
+        default: true
+      },
+      //是否渲染节日
+      showFestival:{
+        type: Boolean,
+        default: true
+      },
+      //是否渲染节气
+      showTerm:{
+        type: Boolean,
+        default: true
+      },
+      weekTitleAlign:{
+        type: String,
+        default: 'right'
+      },
       weekCount: {
         type: Number,
         default: 5
@@ -67,7 +89,7 @@
       },
       renderContent: {
         type: Function,
-        default: (h, data) => {
+        default: function(h, data) {
 
           var {isToday, isWeekend, isOtherMonthDay, date, year, month, day, weekDay, lunar, festival, term, renderMonth} = data
 
@@ -91,11 +113,11 @@
 
           return (<div class={boxClassName}>
             <p class="kl-calendar_day-info">
-              <span class={lunarClassName}>{lunarStr}</span>
+              {this.showLunar?(<span class={lunarClassName}>{lunarStr}</span>):null}
               <span class="kl-calendar_day-info-date">{$date}日</span>
             </p>
-            {$festival}
-            {$term}
+            {this.showFestival?$festival:null}
+            {this.showTerm?$term:null}
           </div>)
         }
       },
@@ -113,6 +135,34 @@
       }
     },
     methods: {
+      dateClick(date){
+        this.$emit('date-click',date)
+      },
+      /**
+       * 获取当前渲染的月份
+       * @returns {{year: number | *, month: methods.renderMonth, days: methods.renderMonth}}
+       */
+      getRenderedMonth(){
+        return{
+          year:this.renderYear,
+          month:this.renderMonth,
+          days:this.currentMonthDays
+        }
+      },
+      /**
+       * 强制渲染某个月份
+       * @param year
+       * @param month
+       */
+      renderThisMonth(year, month){
+        this.render(year, month)
+      },
+      /**
+       * 渲染
+       * @param year
+       * @param month
+       * @param weekCount
+       */
       render(year, month, weekCount = this.weekCount) {
         var result = this.monthDetail(year, month, weekCount);
         var beforeRender = this.beforeRender
@@ -129,6 +179,13 @@
           beforeRender(year, month, setInfo)
         else setInfo()
       },
+      /**
+       * 计算该月需要渲染的日期信息
+       * @param year
+       * @param month
+       * @param weekCount
+       * @returns {Array}
+       */
       monthDetail(year, month, weekCount) {
 
         //计算用的month为传入month - 1
@@ -183,10 +240,20 @@
 
         return monthDays
       },
+      /**
+       * 从当前渲染的月份中根据第几周，第几天获取日期数据
+       * @param week
+       * @param day
+       * @returns {*}
+       */
       currentDate(week, day) {
         var index = (week - 1) * 7 + day - 1;
         return this.currentMonthDays[index];
       },
+      /**
+       * 向后跳转几月，负数则是向前
+       * @param step
+       */
       turn(step) {
         var year = this.renderYear, month = this.renderMonth - 1;
         var date = new Date(year, month);
@@ -198,6 +265,9 @@
         //渲染
         this.render(toRenderYear, toRenderMonth);
       },
+      /**
+       * 跳转到当前月
+       */
       turnNow() {
         var date = new Date();
         //获取要渲染的年份、月份

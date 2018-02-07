@@ -84,12 +84,18 @@ new Vue({
 
 |参数|说明|类型|可选值|默认值|
 |---|---|---|---|---|
-| width|宽度|String| - |'100%'|
-| height|高度|String| - |'100%'|
+| width|宽度|String|-|100%|
+| height|高度|String|-|100%|
+| border|是否开启纵向边框|Boolean|true/false|true|
+| show-lunar|是否渲染农历(若定义了render-content则该属性不起作用)|Boolean|true/false|true|
+| show-festival|是否渲染节日(若定义了render-content则该属性不起作用)|Boolean|true/false|true|
+| show-term|是否渲染节气(若定义了render-content则该属性不起作用)|Boolean|true/false|true|
 |week-count|每月显示的行的数量|Number|-|5|
+|week-title-align|头部对其|String|left/right/center|right|
 |week-title|头部展示的内容| Array<String> |-|['周日', '周一', '周二', '周三', '周四', '周五', '周六']|
-|render-content|每日内容的自定义渲染函数|Function(h,date)|-||
-|before-render|渲染前的回调|Function(year,month,next)|-|-|
+|render-content|每日内容的自定义渲染函数|Function(h,date) h 为vue中的渲染函数，支持jsx，date为当日数据对象，具体字段参考下文|-||
+|before-render|渲染前的回调|Function(year,month,next)|-||
+|before-render|渲染前的回调|Function(year,month,next)|-||
 
 ## Events
 
@@ -97,6 +103,197 @@ new Vue({
 |---|---|---|
 | year-change  | 当前渲染的年份变化时会触发该事件  |  year,month |
 | month-change  | 当前渲染的月份变化时会触发该事件  |  year,month |
+| date-click  | 点击某个日期格子时会触发该事件  |  date |
+
+## Methods
+| 函数名	| 说明 | 参数 |
+|---|---|---|
+|renderThisMonth|强制渲染某个月|year, month|
+|getRenderedMonth|获取当前渲染的月份信息||
+
+## date
+
+`render-content`中的第二个参数date，包含以下字段
+
+| 事件名	| 说明  |
+|---|---|
+| date  | Date对象  | 
+| year  | 年  | 
+| month  | 月  | 
+| day  | 日  | 
+| weekDay  | 周几(0-6)  | 
+| lunar  | 农历数据 | 
+| festival  | 节日 | 
+| term  | 节气 | 
+| isToday  | 是否为今天 | 
+| isWeekend  | 是否为周末 | 
+| isOtherMonthDay  | 是否属于当前渲染月份 | 
+| renderYear  | 当前渲染年份 | 
+| renderMonth  | 当前渲染月份 | 
+
+
+## example
+
+- [默认渲染](http://kylin.himmas.cc/vue-calendar/example/index.html)
+- [自定义渲染案例](http://kylin.himmas.cc/vue-calendar/example/demo.html)
+  
+  代码如下
+  ```html
+  <!DOCTYPE html>
+  <html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+  </head>
+  <style>
+    .date-box {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      box-sizing: border-box;
+    }
+    .first-info{
+      flex: 1;
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+      font-size: 18px;
+      font-weight: bold;
+    }
+    .second-info{
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      color: #999;
+      font-size: 12px;
+    }
+    .second-info.festival{
+      color: #f43;
+    }
+    .sign{
+      display: none;
+      position: absolute;
+      top: 0;
+      left: 0;
+      background: #f43;
+      width: 20px;
+      height: 20px;
+      color: #fff;
+      line-height: 20px;
+      text-align: center;
+    }
+    .date-box.today{
+      background: #fb0;
+      color: #fff;
+    }
+    .date-box.today .second-info{
+      color: #fff;
+    }
+    .weekend{
+      background: #f6f8fa;
+    }
+    .holiday .sign{
+      display: block;
+    }
+    .date-box.other-month .second-info,.date-box.other-month .first-info{
+      color: #999;
+    }
+    .date-box:hover{
+      border: 3px solid #fb0;
+    }
+  </style>
+  <body>
+  <script src="./lib/vue.min.js"></script>
+  <script src="../dist/vue-calendar.js"></script>
+  <div id="app">
+    <kl-calendar width="600px" height="500px"
+                 :render-content="renderContent"
+                 :week-title="weekTitle"
+                 :border="false"
+                 :before-render="beforeRender"
+                 @year-change="changeHandle"
+                 @month-change="changeHandle"
+  
+    />
+  </div>
+  <script>
+  
+    Vue.use(Calendar)
+  
+    new Vue({
+      el: '#app',
+      data() {
+        return {
+          weekTitle: ['日', '一', '二', '三', '四', '五', '六'],
+          holiday: [
+            '2018-01-01',
+            '2018-02-15',
+            '2018-02-16',
+            '2018-02-17',
+            '2018-02-18',
+            '2018-02-19',
+            '2018-02-20',
+            '2018-02-21',
+          ]
+        }
+      },
+      methods: {
+        twoDigit:function(num){ return ('000'+num).slice(-2) },
+        renderContent(h, data) {
+          var {isToday,isWeekend,isOtherMonthDay, year, day, month, renderYear, renderMonth, lunar, weekDay, festival, term} = data
+  
+          // lunar对象中存有农历数据
+          var {lunarDayChiness} = lunar
+  
+          //第二行展示的数据的优先级为 节日>节气>农历日
+          var secondInfo = festival ?
+            festival : (term ? term : (lunarDayChiness || ''))
+  
+          var dateStr = `${year}-${this.twoDigit(month)}-${this.twoDigit(day)}`
+  
+          var isHoliday = (!!~this.holiday.indexOf(dateStr)) || isWeekend
+  
+          return h('div', {
+            class: {
+              'date-box': true,
+              'today':isToday,
+              'weekend':isWeekend,
+              'holiday':isHoliday,
+              'other-month':isOtherMonthDay
+            }
+          }, [h('div',{
+            class: {
+              'first-info': true
+            }
+          },day),h('div',{
+            class: {
+              'second-info': true,
+              'festival':festival
+            }
+          },secondInfo),h('div',{
+            class: {
+              'sign': true
+            }
+          },'休')])
+        },
+        beforeRender(year,month,next){
+          console.log('before-render',year,month)
+          next()
+        },
+        changeHandle(year,month){
+          console.log('change',year,month)
+        }
+      }
+    })
+  </script>
+  </body>
+  </html>
+
+  ```
+
+
 
 
 ## Build Setup
