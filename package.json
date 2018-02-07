@@ -19,6 +19,11 @@
     "last 2 versions",
     "not ie <= 8"
   ],
+  "keywords": [
+    "calendar",
+    "custom",
+    "vue"
+  ],
   "devDependencies": {
     "babel-core": "^6.26.0",
     "babel-helper-vue-jsx-merge-props": "^2.0.3",

@@ -1,10 +1,5 @@
 <template>
   <div id="app">
-    <!--<kl-calendar height="800px" width="100%"-->
-    <!--@month-change="renderMonthChange"-->
-    <!--@year-change="renderMonthChange"-->
-    <!--:before-render="beforeRender"-->
-    <!--/>-->
     <calendar height="800px" width="100%"
               ref="calendar"
               @month-change="renderMonthChange"
