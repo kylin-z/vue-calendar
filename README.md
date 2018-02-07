@@ -87,9 +87,17 @@ new Vue({
 | width|宽度|String| - |'100%'|
 | height|高度|String| - |'100%'|
 |weekCount|每月显示的行的数量|Number|-|5|
-|weekTitle|头部展示的内容|Array<String>|-|['周日', '周一', '周二', '周三', '周四', '周五', '周六']|
+|weekTitle|头部展示的内容| Array<String> |-|['周日', '周一', '周二', '周三', '周四', '周五', '周六']|
 |renderContent|每日内容的自定义渲染函数|Function(h,date)|-||
 |beforeRender|渲染前的回调|Function(year,month,next)|-|-|
+
+## Events
+
+| 事件名	| 说明 | 参数 |
+|---|---|---|
+| year-change  | 当前渲染的年份变化时会触发该事件  |  year,month |
+| month-change  | 当前渲染的月份变化时会触发该事件  |  year,month |
+
 
 ## Build Setup
 
@@ -103,5 +111,3 @@ npm run dev
 # build for production with minification
 npm run build
 ```
-
-For detailed explanation on how things work, consult the [docs for vue-loader](http://vuejs.github.io/vue-loader).
