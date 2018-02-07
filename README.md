@@ -2,7 +2,7 @@
 
  基于vue2.0的轻量展示型日历组件
  
- <img src="http://7xrqm7.com1.z0.glb.clouddn.com/readme-vue-calendar-example-1.png" />
+ ![](http://7xrqm7.com1.z0.glb.clouddn.com/readme-vue-calendar-example-1.png?imageView2/1/w/1200/h/800/q/100)
 
 ## Install
 
