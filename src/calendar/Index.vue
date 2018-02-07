@@ -22,8 +22,12 @@
         </div>
       </div>
       <slot></slot>
-      <div class="kl-calendar_body-week" v-for="week in weekCount">
-        <div class="kl-calendar_body-day" v-for="day in 7">
+      <div class="kl-calendar_body-week"
+           :class="{'no-left-border':!border}"
+           v-for="week in weekCount">
+        <div class="kl-calendar_body-day"
+             :class="{'no-right-border':!border}"
+             v-for="day in 7">
           <Item :source="currentDate(week,day)"></Item>
         </div>
       </div>
@@ -40,16 +44,20 @@
     components: {Item},
     props: {
       width: {
-        type:String,
-        default:'100%'
+        type: String,
+        default: '100%'
       },
       height: {
-        type:String,
-        default:'100%'
+        type: String,
+        default: '100%'
       },
       weekCount: {
         type: Number,
         default: 5
+      },
+      border:{
+        type: Boolean,
+        default: true
       },
       weekTitle: {
         type: Array,
@@ -61,20 +69,10 @@
         type: Function,
         default: (h, data) => {
 
-          var {date, year, month, day, weekDay, lunar, festival, term, renderMonth} = data
-
-          //是否是周末
-          var isWeekend = weekDay == 0 || weekDay == 6
-
-          //是否是当前渲染月份中的日子
-          var isOtherMonthDay = month !== renderMonth
+          var {isToday, isWeekend, isOtherMonthDay, date, year, month, day, weekDay, lunar, festival, term, renderMonth} = data
 
           //是否是初一
           var isChuYi = lunar.lunarDay == 1
-
-          //是否为今天
-          var todayDate = new Date()
-          var isToday = (date.getFullYear() === todayDate.getFullYear()) && (date.getMonth() === todayDate.getMonth()) && (date.getDate() === todayDate.getDate())
 
           var boxClassName = `kl-calendar_day-box
           ${isWeekend ? 'kl-calendar_body-day-weekend' : ''}
@@ -120,7 +118,7 @@
         var beforeRender = this.beforeRender
 
         //重新绑定数据->渲染
-        var setInfo = ()=>{
+        var setInfo = () => {
           this.currentMonthDays = result;
           this.renderYear = year;
           this.renderMonth = month;
@@ -128,7 +126,7 @@
 
         //如果有beforeRender回调
         if (beforeRender && (typeof beforeRender === 'function'))
-          beforeRender(year,month,setInfo)
+          beforeRender(year, month, setInfo)
         else setInfo()
       },
       monthDetail(year, month, weekCount) {
@@ -148,10 +146,16 @@
         //该月要显示的所有日期对象数组,包括前后月补完
         var monthDays = []
 
+        var todayDate = new Date()
+
         for (let i = 0, cursor = firstDate; i < weekCount * 7; i++) {
 
           let day = cursor.getDate();
           let thisDate = new Date(cursor)
+
+          let isToday = (todayDate.getFullYear() == thisDate.getFullYear()) &&
+            (todayDate.getMonth() == thisDate.getMonth()) &&
+            (todayDate.getDate() == thisDate.getDate())
 
           monthDays.push({
             //当前日期信息
@@ -163,6 +167,12 @@
             lunar: ChineseCalendar.date2lunar(thisDate),//农历
             festival: ChineseCalendar.lunarFestival(thisDate),//节日
             term: ChineseCalendar.lunarTerm(thisDate),//节气
+            isToday,
+            //是否是周末
+            isWeekend: thisDate.getDay() == 0 || thisDate.getDay() == 6,
+
+            //是否是当前渲染月份中的日子
+            isOtherMonthDay: thisDate.getMonth() + 1 !== month,
             //当前面板渲染的年、月
             renderYear: year,
             renderMonth: month
@@ -197,12 +207,12 @@
         this.render(toRenderYear, toRenderMonth);
       }
     },
-    watch:{
-      renderYear(year,oldYear){
-        this.$emit('year-change',year,this.renderMonth)
+    watch: {
+      renderYear(year, oldYear) {
+        this.$emit('year-change', year, this.renderMonth)
       },
-      renderMonth(month,oldMonth){
-        this.$emit('month-change',this.renderYear,month)
+      renderMonth(month, oldMonth) {
+        this.$emit('month-change', this.renderYear, month)
       }
     }
   }

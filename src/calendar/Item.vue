@@ -9,6 +9,7 @@
       var parent, {renderContent, _renderProxy} = this.$parent;
 
       return renderContent.call(_renderProxy, h, this.source);
+
     }
   }
 </script>

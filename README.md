@@ -86,10 +86,10 @@ new Vue({
 |---|---|---|---|---|
 | width|宽度|String| - |'100%'|
 | height|高度|String| - |'100%'|
-|weekCount|每月显示的行的数量|Number|-|5|
-|weekTitle|头部展示的内容| Array<String> |-|['周日', '周一', '周二', '周三', '周四', '周五', '周六']|
-|renderContent|每日内容的自定义渲染函数|Function(h,date)|-||
-|beforeRender|渲染前的回调|Function(year,month,next)|-|-|
+|week-count|每月显示的行的数量|Number|-|5|
+|week-title|头部展示的内容| Array<String> |-|['周日', '周一', '周二', '周三', '周四', '周五', '周六']|
+|render-content|每日内容的自定义渲染函数|Function(h,date)|-||
+|before-render|渲染前的回调|Function(year,month,next)|-|-|
 
 ## Events
 
