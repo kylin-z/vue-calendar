@@ -1,6 +1,6 @@
 # calendar
 
- [Chinese](../README.zh-CN.md)
+ [Chinese](https://github.com/kylin-z/vue-calendar/blob/master/README.zh-CN.md)
  
  This is a calendar component based on vue.js . support custom content. No dependencies.
  Currently, It only supports month view. You can click the control button to change the month.
