@@ -1,32 +1,19 @@
 # calendar
 
- [Chinese](../README.zh-CN.md)
- 
- This is a calendar component based on vue.js . support custom content. No dependencies.
- Currently, It only supports month view. You can click the control button to change the month.
- 
- [Simple Live Demo](http://kylin.himmas.cc/vue-calendar/example/index.html)
+ 基于vue2.0的轻量展示型日历组件,支持自定义内容
  
  ![](http://7xrqm7.com1.z0.glb.clouddn.com/readme-vue-calendar-example-1.png?imageView2/1/w/1200/h/800/q/100)
 
 ## Install
-
-### npm
 
 ```bash
 $ npm install himmas-vue-calendar
 
 ```
 
-### script
-
-```html
-<script src='dist/vue-calendar.js'>
-```
-
 ## Usage
 
-### Global Registration
+### 全局注册
 
 ```js
 //main.js
@@ -50,7 +37,7 @@ new Vue({
 <!--app.vue-->
 <template>
   <div id="app">
-    <!-- 'kl-' prefix -->
+    <!--全局引入需要加上kl前缀-->
     <kl-calendar height="800px" width="800px"/>
   </div>
 </template>
@@ -58,13 +45,22 @@ new Vue({
 <script>
 
   export default {
-    name: 'App'
+    name: 'App',
+    methods: {
+      renderMonthChange(year, month) {
+        console.log(year, month);
+      },
+      beforeRender(year,month,next){
+        console.log(year, month);
+        next()
+      }
+    }
   }
 </script>
 
 ```
 
-### Local Registration
+### 局部注册
 
 ```html
 <!--app.vue-->
@@ -86,60 +82,62 @@ new Vue({
 
 ## Attributes
 
-|Attribute|Description|Type|Accepted Values	|Default|
+|参数|说明|类型|可选值|默认值|
 |---|---|---|---|---|
-| width|Calendar's width|String|-|100%|
-| height|Calendar's height|String|-|100%|
-| border|whether Calendar has vertical border|Boolean|true/false|true|
-| show-lunar|whether lunar info is visible.if `render-content` is has been defined, this attribute does not work)|Boolean|true/false|true|
-| show-festival|whether festival is visible.if `render-content` is has been defined, this attribute does not work|Boolean|true/false|true|
-| show-term|whether solar terms is visible.if `render-content` is has been defined, this attribute does not work|Boolean|true/false|true|
-|week-count|the number of weeks|Number|-|5|
-|week-title-align|the alignment of head information|String|left/right/center|right|
-|week-title|head content | Array<String> |-|['周日', '周一', '周二', '周三', '周四', '周五', '周六']|
-|render-content|render function for date, support jsx|Function(h,date)|-||
-|before-render|callback before rendering|Function(year,month,next)|-||
+| width|宽度|String|-|100%|
+| height|高度|String|-|100%|
+| border|是否开启纵向边框|Boolean|true/false|true|
+| show-lunar|是否渲染农历(若定义了render-content则该属性不起作用)|Boolean|true/false|true|
+| show-festival|是否渲染节日(若定义了render-content则该属性不起作用)|Boolean|true/false|true|
+| show-term|是否渲染节气(若定义了render-content则该属性不起作用)|Boolean|true/false|true|
+|week-count|每月显示的行的数量|Number|-|5|
+|week-title-align|头部对其|String|left/right/center|right|
+|week-title|头部展示的内容| Array<String> |-|['周日', '周一', '周二', '周三', '周四', '周五', '周六']|
+|render-content|每日内容的自定义渲染函数|Function(h,date) h 为vue中的渲染函数，支持jsx，date为当日数据对象，具体字段参考下文|-||
+|before-render|渲染前的回调|Function(year,month,next)|-||
+|before-render|渲染前的回调|Function(year,month,next)|-||
 
 ## Events
 
-| Event	| Description | params |
+| 事件名	| 说明 | 参数 |
 |---|---|---|
-| year-change  | This event will be fired when the currently rendered year changes  |  year,month |
-| month-change  | This event will be fired when the currently rendered month changes  |  year,month |
-| date-click  | This event will be fired when you click a date |  date |
+| year-change  | 当前渲染的年份变化时会触发该事件  |  year,month |
+| month-change  | 当前渲染的月份变化时会触发该事件  |  year,month |
+| date-click  | 点击某个日期格子时会触发该事件  |  date |
 
 ## Methods
-| Method	| Description | params |
+| 函数名	| 说明 | 参数 |
 |---|---|---|
-|renderThisMonth|render a month|year, month|
-|getRenderedMonth|get the currently rendered month information||
+|renderThisMonth|强制渲染某个月|year, month|
+|getRenderedMonth|获取当前渲染的月份信息||
 
 ## date
 
-`render-content` second param `date`
+`render-content`中的第二个参数date，包含以下字段
 
-| Key | Description  |
+| 事件名	| 说明  |
 |---|---|
-| date  | Date Object  | 
-| year  | year  | 
-| month  | the month of the year  | 
-| day  |  the day of the month  | 
-| weekDay  | the day of the week(0-6)  | 
-| lunar  | lunar info | 
-| festival  | festival | 
-| term  | solar term | 
-| isToday  | isToday | 
-| isWeekend  | isWeekend | 
-| isOtherMonthDay  | whether it belongs to the current rendering month | 
-| renderYear  | the current rendering year | 
-| renderMonth  | the current month is rendered | 
+| date  | Date对象  | 
+| year  | 年  | 
+| month  | 月  | 
+| day  | 日  | 
+| weekDay  | 周几(0-6)  | 
+| lunar  | 农历数据 | 
+| festival  | 节日 | 
+| term  | 节气 | 
+| isToday  | 是否为今天 | 
+| isWeekend  | 是否为周末 | 
+| isOtherMonthDay  | 是否属于当前渲染月份 | 
+| renderYear  | 当前渲染年份 | 
+| renderMonth  | 当前渲染月份 | 
 
 
 ## example
 
-- [default](http://kylin.himmas.cc/vue-calendar/example/index.html)
-- [custom example](http://kylin.himmas.cc/vue-calendar/example/demo.html)
+- [默认渲染](http://kylin.himmas.cc/vue-calendar/example/index.html)
+- [自定义渲染案例](http://kylin.himmas.cc/vue-calendar/example/demo.html)
   
+  代码如下
   ```html
   <!DOCTYPE html>
   <html lang="en">
@@ -246,10 +244,10 @@ new Vue({
         renderContent(h, data) {
           var {isToday,isWeekend,isOtherMonthDay, year, day, month, renderYear, renderMonth, lunar, weekDay, festival, term} = data
   
-          // lunar info
+          // lunar对象中存有农历数据
           var {lunarDayChiness} = lunar
   
-         
+          //第二行展示的数据的优先级为 节日>节气>农历日
           var secondInfo = festival ?
             festival : (term ? term : (lunarDayChiness || ''))
   
@@ -297,8 +295,8 @@ new Vue({
 
 ## tips
 
-- IE9- not support
-- based on vue.js v2.1.5+
+- 由于使用了flex布局，在IE9及以下版本的浏览器中会渲染失常
+- 最低支持到vue.js v2.1.5
 
 
 ## Build Setup
