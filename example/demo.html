@@ -62,6 +62,9 @@
   .date-box:hover{
     border: 3px solid #fb0;
   }
+  .title-box{
+    font-size: 20px;
+  }
 </style>
 <body>
 <script src="./lib/vue.min.js"></script>
@@ -74,6 +77,7 @@
                :before-render="beforeRender"
                @year-change="changeHandle"
                @month-change="changeHandle"
+               :render-title="renderTitle"
 
   />
 </div>
@@ -100,6 +104,16 @@
     },
     methods: {
       twoDigit:function(num){ return ('000'+num).slice(-2) },
+      renderTitle(h,year,month){
+        return h('div', {
+          class: {
+            'title-box': true
+          }
+        },[
+          h('span',{},year+'年'),
+          h('span',{},month+'月')
+        ])
+      },
       renderContent(h, data) {
         var {isToday,isWeekend,isOtherMonthDay, year, day, month, renderYear, renderMonth, lunar, weekDay, festival, term} = data
 

@@ -1,18 +1,6 @@
 <template>
   <div class="kl-calendar" :style="{width,height}">
-    <div class="kl-calendar_title-bar">
-      <div class="kl-calendar_render-info">
-        <span class="kl-calendar_year">{{renderYear}}年</span>
-        <span class="kl-calendar_month">{{renderMonth}}月</span>
-      </div>
-      <div class="kl-calendar_tool">
-        <div class="kl-calendar_tool-btn" @click="turn(-12)"><<</div>
-        <div class="kl-calendar_tool-btn" @click="turn(-1)"><</div>
-        <div class="kl-calendar_tool-btn" @click="turnNow">本月</div>
-        <div class="kl-calendar_tool-btn" @click="turn(1)">></div>
-        <div class="kl-calendar_tool-btn" @click="turn(12)">>></div>
-      </div>
-    </div>
+    <title-bar :year="renderYear" :month="renderMonth" v-if="showTitle"></title-bar>
     <div class="kl-calendar_body">
       <div class="kl-calendar_body-week-title">
 
@@ -41,10 +29,11 @@
 <script type="text/babel">
   import ChineseCalendar from './js/ChineseCalendar'
   import Item from './Item'
+  import TitleBar from './TitleBar'
 
   export default {
     name: "KlCalendar",
-    components: {Item},
+    components: {Item, TitleBar},
     props: {
       width: {
         type: String,
@@ -54,22 +43,50 @@
         type: String,
         default: '100%'
       },
+      //是否显示头部标题栏(年月日/按钮)
+      showTitle: {
+        type: Boolean,
+        default: true
+      },
+      showControlBtn: {
+        type: Boolean,
+        default: true
+      },
+      renderTitle: {
+        type: Function,
+        default: function (h, year, month) {
+          return (
+            <div class="kl-calendar_title-bar">
+              <div class="kl-calendar_render-info">
+                <span class="kl-calendar_year">{year}年</span>
+                <span class="kl-calendar_month">{month}月</span>
+              </div>
+              {this.showControlBtn ? <div class="kl-calendar_tool">
+                <div class="kl-calendar_tool-btn" onClick={() => this.turn(-12)}>{'<'}</div>
+                <div class="kl-calendar_tool-btn" onClick={() => this.turn(-1)}>{'<<'}</div>
+                <div class="kl-calendar_tool-btn" onClick={() => this.turnNow()}>本月</div>
+                <div class="kl-calendar_tool-btn" onClick={() => this.turn(1)}>{'>'}</div>
+                <div class="kl-calendar_tool-btn" onClick={() => this.turn(12)}>{'>>'}</div>
+              </div> : null}
+            </div>)
+        }
+      },
       //是否渲染农历
-      showLunar:{
+      showLunar: {
         type: Boolean,
         default: true
       },
       //是否渲染节日
-      showFestival:{
+      showFestival: {
         type: Boolean,
         default: true
       },
       //是否渲染节气
-      showTerm:{
+      showTerm: {
         type: Boolean,
         default: true
       },
-      weekTitleAlign:{
+      weekTitleAlign: {
         type: String,
         default: 'right'
       },
@@ -77,7 +94,7 @@
         type: Number,
         default: 5
       },
-      border:{
+      border: {
         type: Boolean,
         default: true
       },
@@ -89,7 +106,7 @@
       },
       renderContent: {
         type: Function,
-        default: function(h, data) {
+        default: function (h, data) {
 
           var {isToday, isWeekend, isOtherMonthDay, date, year, month, day, weekDay, lunar, festival, term, renderMonth} = data
 
@@ -113,11 +130,11 @@
 
           return (<div class={boxClassName}>
             <p class="kl-calendar_day-info">
-              {this.showLunar?(<span class={lunarClassName}>{lunarStr}</span>):null}
+              {this.showLunar ? (<span class={lunarClassName}>{lunarStr}</span>) : null}
               <span class="kl-calendar_day-info-date">{$date}日</span>
             </p>
-            {this.showFestival?$festival:null}
-            {this.showTerm?$term:null}
+            {this.showFestival ? $festival : null}
+            {this.showTerm ? $term : null}
           </div>)
         }
       },
@@ -135,18 +152,18 @@
       }
     },
     methods: {
-      dateClick(date){
-        this.$emit('date-click',date)
+      dateClick(date) {
+        this.$emit('date-click', date)
       },
       /**
        * 获取当前渲染的月份
        * @returns {{year: number | *, month: methods.renderMonth, days: methods.renderMonth}}
        */
-      getRenderedMonth(){
-        return{
-          year:this.renderYear,
-          month:this.renderMonth,
-          days:this.currentMonthDays
+      getRenderedMonth() {
+        return {
+          year: this.renderYear,
+          month: this.renderMonth,
+          days: this.currentMonthDays
         }
       },
       /**
@@ -154,7 +171,7 @@
        * @param year
        * @param month
        */
-      renderThisMonth(year, month){
+      renderThisMonth(year, month) {
         this.render(year, month)
       },
       /**

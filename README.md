@@ -98,6 +98,8 @@ new Vue({
 |week-title-align|the alignment of head information|String|left/right/center|right|
 |week-title|head content | Array<String> |-|['周日', '周一', '周二', '周三', '周四', '周五', '周六']|
 |render-content|render function for date, support jsx|Function(h,date)|-||
+| show-title|whether title bar is visible|Boolean|true/false|true|
+|render-title|render function for title bar, support jsx|Function(h,year,month)|-||
 |before-render|callback before rendering|Function(year,month,next)|-||
 
 ## Events
@@ -205,6 +207,9 @@ new Vue({
     .date-box:hover{
       border: 3px solid #fb0;
     }
+    .title-box{
+      font-size: 20px;
+    }
   </style>
   <body>
   <script src="./lib/vue.min.js"></script>
@@ -217,6 +222,7 @@ new Vue({
                  :before-render="beforeRender"
                  @year-change="changeHandle"
                  @month-change="changeHandle"
+                 :render-title="renderTitle"
   
     />
   </div>
@@ -243,13 +249,23 @@ new Vue({
       },
       methods: {
         twoDigit:function(num){ return ('000'+num).slice(-2) },
+        renderTitle(h,year,month){
+          return h('div', {
+            class: {
+              'title-box': true
+            }
+          },[
+            h('span',{},year+'年'),
+            h('span',{},month+'月')
+          ])
+        },
         renderContent(h, data) {
           var {isToday,isWeekend,isOtherMonthDay, year, day, month, renderYear, renderMonth, lunar, weekDay, festival, term} = data
   
-          // lunar info
+          // lunar对象中存有农历数据
           var {lunarDayChiness} = lunar
   
-         
+          //第二行展示的数据的优先级为 节日>节气>农历日
           var secondInfo = festival ?
             festival : (term ? term : (lunarDayChiness || ''))
   
