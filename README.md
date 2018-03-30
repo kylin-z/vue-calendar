@@ -91,15 +91,15 @@ new Vue({
 | width|Calendar's width|String|-|100%|
 | height|Calendar's height|String|-|100%|
 | border|whether Calendar has vertical border|Boolean|true/false|true|
-| show-lunar|whether lunar info is visible.if `render-content` is has been defined, this attribute does not work)|Boolean|true/false|true|
-| show-festival|whether festival is visible.if `render-content` is has been defined, this attribute does not work|Boolean|true/false|true|
-| show-term|whether solar terms is visible.if `render-content` is has been defined, this attribute does not work|Boolean|true/false|true|
+| show-lunar|whether lunar info is visible.if `render-content`  has been defined, this attribute does not work)|Boolean|true/false|true|
+| show-festival|whether festival is visible.if `render-content`  has been defined, this attribute does not work|Boolean|true/false|true|
+| show-term|whether solar terms is visible.if `render-content`  has been defined, this attribute does not work|Boolean|true/false|true|
 |week-count|the number of weeks|Number|-|5|
 |week-title-align|the alignment of head information|String|left/right/center|right|
 |week-title|head content | Array<String> |-|['周日', '周一', '周二', '周三', '周四', '周五', '周六']|
 |render-content|render function for date, support jsx|Function(h,date)|-||
 | show-title|whether title bar is visible|Boolean|true/false|true|
-| show-control-btn|whether right control btn group is visible|Boolean|true/false|true|
+| show-control-btn|whether right control btn group is visible.if `render-title`  has been defined, this attribute does not work|Boolean|true/false|true|
 |render-title|render function for title bar, support jsx|Function(h,year,month)|-||
 |before-render|callback before rendering|Function(year,month,next)|-||
 

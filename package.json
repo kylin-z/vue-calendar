@@ -1,7 +1,7 @@
 {
   "name": "himmas-vue-calendar",
   "description": "A calendar component for Vue.js",
-  "version": "1.2.1",
+  "version": "1.2.2",
   "author": "kylin-z <kailinzhou@yeah.net>",
   "license": "MIT",
   "scripts": {
