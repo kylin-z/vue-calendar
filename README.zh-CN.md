@@ -95,6 +95,7 @@ new Vue({
 |week-title|头部展示的内容| Array<String> |-|['周日', '周一', '周二', '周三', '周四', '周五', '周六']|
 |render-content|每日内容的自定义渲染函数|Function(h,date) h 为vue中的渲染函数，支持jsx，date为当日数据对象，具体字段参考下文|-||
 | show-title|是否渲染标题栏|Boolean|true/false|true|
+| show-control-btn|是否渲染右侧控制按钮组|Boolean|true/false|true|
 |render-title|标题栏的自定义渲染函数|Function(h,year,month)|-||
 |before-render|渲染前的回调|Function(year,month,next)|-||
 

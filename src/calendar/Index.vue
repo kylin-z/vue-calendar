@@ -48,6 +48,7 @@
         type: Boolean,
         default: true
       },
+      //是否显示控制按钮
       showControlBtn: {
         type: Boolean,
         default: true

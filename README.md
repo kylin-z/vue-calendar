@@ -99,6 +99,7 @@ new Vue({
 |week-title|head content | Array<String> |-|['周日', '周一', '周二', '周三', '周四', '周五', '周六']|
 |render-content|render function for date, support jsx|Function(h,date)|-||
 | show-title|whether title bar is visible|Boolean|true/false|true|
+| show-control-btn|whether right control btn group is visible|Boolean|true/false|true|
 |render-title|render function for title bar, support jsx|Function(h,year,month)|-||
 |before-render|callback before rendering|Function(year,month,next)|-||
 
