@@ -78,6 +78,7 @@
                @year-change="changeHandle"
                @month-change="changeHandle"
                :render-title="renderTitle"
+               :default-date="defaultDate"
 
   />
 </div>
@@ -89,6 +90,7 @@
     el: '#app',
     data() {
       return {
+        defaultDate:'2012-04-18',
         weekTitle: ['日', '一', '二', '三', '四', '五', '六'],
         holiday: [
           '2018-01-01',

@@ -6,6 +6,7 @@
               @year-change="renderMonthChange"
               :before-render="beforeRender"
               @date-click="dateClick"
+              :default-date="defaultDate"
     />
   </div>
 </template>
@@ -17,6 +18,11 @@
   export default {
     name: 'App',
     components: {Calendar},
+    data() {
+      return {
+        defaultDate:'2012-04-18'
+      }
+    },
     methods: {
       renderMonthChange(year, month) {
         console.log(year, month);
@@ -27,7 +33,7 @@
         console.log(year, month);
         next()
       },
-      dateClick(date){
+      dateClick(date) {
         console.log(date);
       }
     }

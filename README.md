@@ -91,6 +91,7 @@ new Vue({
 | width|Calendar's width|String|-|100%|
 | height|Calendar's height|String|-|100%|
 | border|whether Calendar has vertical border|Boolean|true/false|true|
+| defaultDate|default render date|Date,String|anything accepted by new Date()|new Date()|
 | show-lunar|whether lunar info is visible.if `render-content`  has been defined, this attribute does not work)|Boolean|true/false|true|
 | show-festival|whether festival is visible.if `render-content`  has been defined, this attribute does not work|Boolean|true/false|true|
 | show-term|whether solar terms is visible.if `render-content`  has been defined, this attribute does not work|Boolean|true/false|true|
@@ -136,6 +137,7 @@ new Vue({
 | isOtherMonthDay  | whether it belongs to the current rendering month | 
 | renderYear  | the current rendering year | 
 | renderMonth  | the current month is rendered | 
+| isDefaultDate  | isDefaultDate | 
 
 
 ## example

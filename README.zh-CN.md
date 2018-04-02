@@ -87,6 +87,7 @@ new Vue({
 | width|宽度|String|-|100%|
 | height|高度|String|-|100%|
 | border|是否开启纵向边框|Boolean|true/false|true|
+| defaultDate|默认渲染日期|Date,String|能被new Date()解析的|new Date()|
 | show-lunar|是否渲染农历(若定义了render-content则该属性不起作用)|Boolean|true/false|true|
 | show-festival|是否渲染节日(若定义了render-content则该属性不起作用)|Boolean|true/false|true|
 | show-term|是否渲染节气(若定义了render-content则该属性不起作用)|Boolean|true/false|true|
@@ -132,6 +133,7 @@ new Vue({
 | isOtherMonthDay  | 是否属于当前渲染月份 | 
 | renderYear  | 当前渲染年份 | 
 | renderMonth  | 当前渲染月份 | 
+| isDefaultDate  | 是否是默认日期 | 
 
 
 ## example

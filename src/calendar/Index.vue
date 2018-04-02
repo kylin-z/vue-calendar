@@ -43,6 +43,12 @@
         type: String,
         default: '100%'
       },
+      defaultDate: {
+        type: [Date,String],
+        default(){
+          return new Date()
+        }
+      },
       //是否显示头部标题栏(年月日/按钮)
       showTitle: {
         type: Boolean,
@@ -145,7 +151,7 @@
       this.render(this.renderYear, this.renderMonth)
     },
     data() {
-      var date = new Date()
+      var date = new Date(this.defaultDate)
       return {
         renderYear: date.getFullYear(),
         renderMonth: date.getMonth() + 1,
@@ -232,6 +238,11 @@
             (todayDate.getMonth() == thisDate.getMonth()) &&
             (todayDate.getDate() == thisDate.getDate())
 
+          var defaultDate = new Date(this.defaultDate)
+          let isDefaultDate = (defaultDate.getFullYear() == defaultDate.getFullYear()) &&
+            (defaultDate.getMonth() == defaultDate.getMonth()) &&
+            (defaultDate.getDate() == defaultDate.getDate())
+
           monthDays.push({
             //当前日期信息
             date: thisDate,
@@ -243,6 +254,8 @@
             festival: ChineseCalendar.lunarFestival(thisDate),//节日
             term: ChineseCalendar.lunarTerm(thisDate),//节气
             isToday,
+            //是否是默认的那天
+            isDefaultDate,
             //是否是周末
             isWeekend: thisDate.getDay() == 0 || thisDate.getDay() == 6,
 
@@ -301,6 +314,14 @@
       },
       renderMonth(month, oldMonth) {
         this.$emit('month-change', this.renderYear, month)
+      },
+      defaultDate(date) {
+        var date = new Date(date)
+
+        var year = date.getFullYear()
+        var month = date.getMonth() + 1
+
+        this.render(year, month)
       }
     }
   }
