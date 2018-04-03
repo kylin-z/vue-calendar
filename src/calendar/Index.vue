@@ -99,7 +99,7 @@
       },
       weekCount: {
         type: Number,
-        default: 5
+        default: 6
       },
       border: {
         type: Boolean,

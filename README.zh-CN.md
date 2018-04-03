@@ -91,7 +91,7 @@ new Vue({
 | show-lunar|是否渲染农历(若定义了render-content则该属性不起作用)|Boolean|true/false|true|
 | show-festival|是否渲染节日(若定义了render-content则该属性不起作用)|Boolean|true/false|true|
 | show-term|是否渲染节气(若定义了render-content则该属性不起作用)|Boolean|true/false|true|
-|week-count|每月显示的行的数量|Number|-|5|
+|week-count|每月显示的行的数量|Number|-|6|
 |week-title-align|头部对其|String|left/right/center|right|
 |week-title|头部展示的内容| Array<String> |-|['周日', '周一', '周二', '周三', '周四', '周五', '周六']|
 |render-content|每日内容的自定义渲染函数|Function(h,date) h 为vue中的渲染函数，支持jsx，date为当日数据对象，具体字段参考下文|-||

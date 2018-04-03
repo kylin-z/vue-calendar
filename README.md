@@ -95,7 +95,7 @@ new Vue({
 | show-lunar|whether lunar info is visible.if `render-content`  has been defined, this attribute does not work)|Boolean|true/false|true|
 | show-festival|whether festival is visible.if `render-content`  has been defined, this attribute does not work|Boolean|true/false|true|
 | show-term|whether solar terms is visible.if `render-content`  has been defined, this attribute does not work|Boolean|true/false|true|
-|week-count|the number of weeks|Number|-|5|
+|week-count|the number of weeks|Number|-|6|
 |week-title-align|the alignment of head information|String|left/right/center|right|
 |week-title|head content | Array<String> |-|['周日', '周一', '周二', '周三', '周四', '周五', '周六']|
 |render-content|render function for date, support jsx|Function(h,date)|-||
