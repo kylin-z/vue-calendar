@@ -69,8 +69,8 @@
                 <span class="kl-calendar_month">{month}月</span>
               </div>
               {this.showControlBtn ? <div class="kl-calendar_tool">
-                <div class="kl-calendar_tool-btn" onClick={() => this.turn(-12)}>{'<'}</div>
-                <div class="kl-calendar_tool-btn" onClick={() => this.turn(-1)}>{'<<'}</div>
+                <div class="kl-calendar_tool-btn" onClick={() => this.turn(-12)}>{'<<'}</div>
+                <div class="kl-calendar_tool-btn" onClick={() => this.turn(-1)}>{'<'}</div>
                 <div class="kl-calendar_tool-btn" onClick={() => this.turnNow()}>本月</div>
                 <div class="kl-calendar_tool-btn" onClick={() => this.turn(1)}>{'>'}</div>
                 <div class="kl-calendar_tool-btn" onClick={() => this.turn(12)}>{'>>'}</div>
