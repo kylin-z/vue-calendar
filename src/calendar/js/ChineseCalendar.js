@@ -412,15 +412,15 @@ var ChineseCalendar = {
      * @return {init} 返回第几周
      * **/
     theNoWeek: function(y, m, d) {
-        var str = new Date(y, m - 1, d);
+        var date = new Date(y, m - 1, d);
         // 先计算出该日期为第几周
-        let week = Math.ceil(str.getDate()/7);
-        let month = str.getMonth() + 1;
+        let week = Math.ceil(date.getDate()/7);
+        let month = date.getMonth() + 1;
         // 判断这个月前7天是周几，如果不是周一，则计入上个月
-        if  (str.getDate() < 7) {
-            if (str.getDay() !== 1) {
+        if  (date.getDate() < 7) {
+            if (date.getDay() !== 1) {
                 week = 5;
-                month = str.getMonth();
+                month = date.getMonth();
             }
         }
         return week
